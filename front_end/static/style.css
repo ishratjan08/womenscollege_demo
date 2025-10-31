@@ -1,0 +1,270 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+    overflow: hidden; /* Prevent body scroll */
+}
+
+/* Chatbot Widget Container */
+.chatbot-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 0; /* Initially hidden */
+    height: 90vh; /* Half screen height */
+    max-height: 600px; /* Max height for larger screens */
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0; /* Initially invisible */
+    z-index: 1000;
+}
+
+.chatbot-widget.open {
+    width: 400px; /* Half screen width, or a fixed width */
+    opacity: 1;
+}
+
+.chatbot-widget.maximized {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+}
+
+/* Chatbot Toggle Button */
+.chatbot-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Above the widget */
+    transition: transform 0.3s ease-in-out;
+}
+
+.chatbot-toggle-button:hover {
+    transform: scale(1.05);
+}
+
+/* Header Section */
+.header {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%; /* Full width of its parent (.chatbot-widget) */
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.header h2 {
+    margin: 0;
+    color: white; /* Ensure h2 color is white in header */
+    border-bottom: none; /* Remove border from h2 in header */
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.header-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+/* Dropdown Styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.three-dots {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden; /* Ensures rounded corners for content */
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.session-info-dropdown {
+    padding: 12px 16px;
+    color: #555;
+    font-size: 0.9em;
+    border-bottom: 1px solid #eee;
+}
+
+.session-info-dropdown strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.chat-container {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow chat container to grow within the widget */
+    overflow: hidden; /* Hide overflow for rounded corners */
+}
+
+.chat-window {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto; /* Only message part scrolls */
+    border-bottom: 1px solid #dd4d4d;;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+.message.user {
+    background-color: #dcf8c6;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.message.bot {
+    background-color: #e0e0e0;
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+/* Markdown specific styles */
+.message.bot ul,
+.message.bot ol {
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.message.bot li {
+    margin-bottom: 5px;
+}
+
+.message.bot p {
+    margin-bottom: 10px;
+}
+
+.message.bot h1,
+.message.bot h2,
+.message.bot h3,
+.message.bot h4,
+.message.bot h5,
+.message.bot h6 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.chat-input input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for the new buttons in dropdown */
+#reset-db-button,
+#reset-session-button,
+#reset-user-button {
+    background-color: #dc3545; /* Red color for reset buttons */
+    color: white;
+    border-radius: 0; /* Remove border-radius for dropdown buttons */
+    padding: 10px 16px;
+    text-align: left;
+}
+
+#reset-db-button:hover,
+#reset-session-button:hover,
+#reset-user-button:hover {
+    background-color: #c82333;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ease My cure</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <button class="chatbot-toggle-button" id="chatbot-toggle-button">💬</button>
+
+    <div class="chatbot-widget" id="chatbot-widget">
+        <!-- Header Section -->
+        <div class="header">
+        <h2 id="name"> </h2>
+        <div class="header-actions">
+            <button class="header-button" id="maximize-button">&#x26F6;</button> <!-- Maximize icon -->
+            <button class="header-button" id="close-button">&#x2715;</button> <!-- Cross icon -->
+            <div class="dropdown">
+                <button class="dropdown-button">
+                    <span class="three-dots">&#8942;</span> <!-- Three dots icon -->
+                </button>
+                <div class="dropdown-content">
+                    <div class="session-info-dropdown">
+                        <strong>Sess ID:</strong> <span id="session-id"></span><br>
+                        <strong>User ID:</strong> <span id="user-id"></span>
+                    </div>
+                    <button id="reset-session-button">Reset Session</button>
+                    <button id="reset-user-button">Reset User</button>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-window" id="chat-window">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-query" placeholder="Type your message...">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
