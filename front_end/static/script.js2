@@ -1,0 +1,49 @@
+let micBtn = document.getElementById("micBtn");
+let recorder;
+let chunks = [];
+
+micBtn.addEventListener("click", async () => {
+    if (micBtn.innerText === "🎤 Speak") {
+        startRecording();
+    } else {
+        stopRecording();
+    }
+});
+
+async function startRecording() {
+    let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    recorder = new MediaRecorder(stream);
+
+    recorder.start();
+    micBtn.innerText = "⏹ Stop";
+
+    recorder.ondataavailable = (e) => {
+        chunks.push(e.data);
+    };
+
+    recorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: "audio/wav" });
+        const file = new File([blob], "audio.wav");
+        const formData = new FormData();
+        formData.append("file", file);
+
+        let res = await fetch("http://127.0.0.1:8000/audio_to_text", {
+            method: "POST",
+            body: formData
+        });
+
+        let data = await res.json();
+        console.log("Bot:", data.text);
+
+        // Show result in chat window if needed
+        appendMessage("bot", data.text);
+
+        chunks = [];
+    };
+}
+
+function stopRecording() {
+    recorder.stop();
+    micBtn.innerText = "🎤 Speak";
+}
+
