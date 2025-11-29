@@ -1,5 +1,4 @@
 .idea/
 __pycache__/
 venv10/*
-chat.db
-embedded_vec_db/
+test.py
