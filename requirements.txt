@@ -1,3 +1,6 @@
+gtts
+pydub
+speechrecognition
 
 PyMuPDF==1.26.5
 PyMuPDF==1.26.5
