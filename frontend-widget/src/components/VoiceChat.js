@@ -134,9 +134,10 @@ const VoiceChat = ({ sessionId: propSessionId, userId: propUserId, backendUrl = 
       const audioUrl = URL.createObjectURL(audioBlob);
       appendMessage('user', res.data.text, audioUrl);
       
-      // Add bot response without auto-playing
+      // Add bot response with audio URL if available
       const botMessage = res.data.message;
-      appendMessage('bot', botMessage);
+      const botAudioUrl = res.data.audio_url ? `${backendUrl}${res.data.audio_url}` : null;
+      appendMessage('bot', botMessage, botAudioUrl);
     } catch (err) {
       console.error('Error:', err);
       setError('Error processing audio.');
